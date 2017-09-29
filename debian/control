@@ -1,0 +1,35 @@
+Source: django-mailman3
+Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Uploaders: Jonas Meurer <mejo@debian.org>
+Section: python
+Priority: optional
+Build-Depends: debhelper (>= 9),
+               dh-python,
+               mailman3-client,
+               python-all,
+               python-django,
+               python-django-allauth,
+               python-django-gravatar2,
+               python-mock,
+               python-setuptools
+Standards-Version: 4.1.0
+Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/django-mailman3.git
+Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/django-mailman3.git
+Homepage: https://gitlab.com/mailman/django-mailman3
+Testsuite: autopkgtest-pkg-python
+X-Python-Version: >=2.7
+
+Package: python-django-mailman3
+Architecture: all
+Depends: mailman3-client,
+         python-django,
+         python-django-allauth,
+         python-django-gravatar2,
+         python-tz,
+         ${misc:Depends},
+         ${python:Depends}
+Description: Django library to help interaction with Mailman3 (Python 2 version)
+ This package contains libraries and templates for Django-based interfaces
+ interacting with Mailman.
+ .
+ This package contains the Python 2 version of the library.

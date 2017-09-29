@@ -1,0 +1,38 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Source: https://gitlab.com/mailman/django-mailman3
+Author: Mailman Developers <mailman-developers@python.org>
+
+Files: *
+Copyright: © 2016 by the Free Software Foundation, Inc.
+License: GPL-3
+
+Files: debian/*
+Copyright: © 2017 Jonas Meurer <mejo@debian.org>
+License: GPL-2
+
+License: GPL-3
+ Django-Mailman is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option)
+ any later version.
+ .
+ Django-Mailman is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ more details.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ can be found in the /usr/share/common-licenses/GPL-3 file.
+
+License: GPL-2
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, version 2.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ can be found in the /usr/share/common-licenses/GPL-2 file.

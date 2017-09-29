@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME=django-mailman3
+
+%:
+	dh $@ --with python2 --buildsystem=pybuild
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	set -e; \
+	for python in $(shell pyversions -r); do \
+		PYTHONPATH="." DJANGO_SETTINGS_MODULE=django_mailman3.tests.settings_test $$python $(shell which django-admin) test django_mailman3.tests;\
+	done
+endif
+
+get-orig-source:
+	uscan --verbose --rename
