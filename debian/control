@@ -1,6 +1,7 @@
 Source: django-mailman3
-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
-Uploaders: Jonas Meurer <mejo@debian.org>
+Maintainer: Debian Mailman Team <pkg-mailman-hackers@lists.alioth.debian.org>
+Uploaders: Pierre-Elliott Bécue <becue@crans.org>,
+           Jonas Meurer <mejo@debian.org>
 Section: python
 Priority: optional
 Build-Depends: debhelper (>= 9),
@@ -13,8 +14,8 @@ Build-Depends: debhelper (>= 9),
                python-mock,
                python-setuptools
 Standards-Version: 4.1.0
-Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/django-mailman3.git
-Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/django-mailman3.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-mailman/django-mailman3.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-mailman/django-mailman3.git
 Homepage: https://gitlab.com/mailman/django-mailman3
 Testsuite: autopkgtest-pkg-python
 X-Python-Version: >=2.7
