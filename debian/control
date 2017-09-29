@@ -6,11 +6,11 @@ Section: python
 Priority: optional
 Build-Depends: debhelper (>= 9),
                dh-python,
-               mailman3-client,
                python-all,
                python-django,
                python-django-allauth,
                python-django-gravatar2,
+               python-mailmanclient,
                python-mock,
                python-setuptools
 Standards-Version: 4.1.0
@@ -22,10 +22,10 @@ X-Python-Version: >=2.7
 
 Package: python-django-mailman3
 Architecture: all
-Depends: mailman3-client,
-         python-django,
+Depends: python-django,
          python-django-allauth,
          python-django-gravatar2,
+         python-mailmanclient,
          python-tz,
          ${misc:Depends},
          ${python:Depends}
