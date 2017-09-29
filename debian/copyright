@@ -3,7 +3,7 @@ Source: https://gitlab.com/mailman/django-mailman3
 Author: Mailman Developers <mailman-developers@python.org>
 
 Files: *
-Copyright: © 2016 by the Free Software Foundation, Inc.
+Copyright: © 2016-2017 by the Free Software Foundation, Inc.
 License: GPL-3
 
 Files: debian/*
