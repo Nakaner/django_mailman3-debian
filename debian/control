@@ -1,7 +1,7 @@
 Source: django-mailman3
 Maintainer: Debian Mailman Team <pkg-mailman-hackers@lists.alioth.debian.org>
 Uploaders: Pierre-Elliott Bécue <becue@crans.org>,
-           Jonas Meurer <mejo@debian.org>
+           Jonas Meurer <jonas@freesources.org>
 Section: python
 Priority: optional
 Build-Depends: debhelper (>= 9),
