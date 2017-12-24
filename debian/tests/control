@@ -1,0 +1,5 @@
+Test-Command: python2.7 $(which django-admin) test --pythonpath=. --settings=django_mailman3.tests.settings_test django_mailman3
+Depends: @,
+         python-mock
+Restrictions: build-needed,
+              allow-stderr

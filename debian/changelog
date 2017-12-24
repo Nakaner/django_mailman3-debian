@@ -1,3 +1,9 @@
+django-mailman3 (1.1.0-2) unstable; urgency=medium
+
+  * d/tests/control: Add test running the 'django-admin test' testsuite.
+
+ -- Jonas Meurer <jonas@freesources.org>  Sun, 24 Dec 2017 09:37:19 +0100
+
 django-mailman3 (1.1.0-1) unstable; urgency=medium
 
   * Initial release. (closes: #875427, #875939)

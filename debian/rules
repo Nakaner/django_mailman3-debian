@@ -9,7 +9,7 @@ override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	set -e; \
 	for python in $(shell pyversions -r); do \
-		PYTHONPATH="." DJANGO_SETTINGS_MODULE=django_mailman3.tests.settings_test $$python $(shell which django-admin) test django_mailman3.tests;\
+                $$python $(shell which django-admin) test --pythonpath=. --settings=django_mailman3.tests.settings_test django_mailman3; \
 	done
 endif
 
