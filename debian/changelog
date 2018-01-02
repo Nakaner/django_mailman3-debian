@@ -1,3 +1,10 @@
+django-mailman3 (1.1.0-3) UNRELEASED; urgency=medium
+
+  * Add a d/source/local-options file to remove the quilt patches after a
+    build.
+
+ -- Pierre-Elliott Bécue <becue@crans.org>  Tue, 02 Jan 2018 19:26:21 +0100
+
 django-mailman3 (1.1.0-2) unstable; urgency=medium
 
   * d/tests/control: Add test running the 'django-admin test' testsuite.
