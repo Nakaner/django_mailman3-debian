@@ -2,12 +2,11 @@ django-mailman3 (1.1.0-2) unstable; urgency=medium
 
   [ Jonas Meurer ]
   * d/tests/control: Add test running the 'django-admin test' testsuite.
+  * d/control:
+    - Build-depend on python-tz, required for build-time tests
+    - Bump standards-version to 4.1.3, no changes required
 
-  [ Pierre-Elliott Bécue ]
-  * Add a d/source/local-options file to remove the quilt patches after a
-    build.
-
- -- Pierre-Elliott Bécue <becue@crans.org>  Tue, 02 Jan 2018 19:26:21 +0100
+ -- Jonas Meurer <jonas@freesources.org>  Mon, 29 Jan 2018 12:53:49 +0100
 
 django-mailman3 (1.1.0-1) unstable; urgency=medium
 

@@ -12,8 +12,9 @@ Build-Depends: debhelper (>= 9),
                python-django-gravatar2,
                python-mailmanclient,
                python-mock,
-               python-setuptools
-Standards-Version: 4.1.1
+               python-setuptools,
+               python-tz
+Standards-Version: 4.1.3
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-mailman/django-mailman3.git
 Vcs-Git: https://anonscm.debian.org/git/pkg-mailman/django-mailman3.git
 Homepage: https://gitlab.com/mailman/django-mailman3
