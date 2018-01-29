@@ -7,7 +7,11 @@ django-mailman3 (1.1.0-2) unstable; urgency=medium
     - Bump standards-version to 4.1.3, no changes required
     - Remove superfluous header Testsuite now that we have d/tests/control
 
- -- Jonas Meurer <jonas@freesources.org>  Mon, 29 Jan 2018 12:57:31 +0100
+  [ Pierre-Elliott Bécue ]
+  * Add a d/source/local-options file to remove the quilt patches after a
+    build.
+
+ -- Jonas Meurer <jonas@freesources.org>  Mon, 29 Jan 2018 13:15:02 +0100
 
 django-mailman3 (1.1.0-1) unstable; urgency=medium
 
