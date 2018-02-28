@@ -1,3 +1,10 @@
+django-mailman3 (1.1.0-4) UNRELEASED; urgency=medium
+
+  * d/control:
+    - Update Vcs-* fields to point to new repository on salsa.debian.org.
+
+ -- Jonas Meurer <jonas@freesources.org>  Wed, 28 Feb 2018 23:13:43 +0100
+
 django-mailman3 (1.1.0-3) unstable; urgency=medium
 
   [ Pierre-Elliott Bécue ]
