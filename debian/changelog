@@ -1,9 +1,16 @@
-django-mailman3 (1.1.0-4) UNRELEASED; urgency=medium
+django-mailman3 (1.1.0-4) unstable; urgency=medium
 
+  [ Jonas Meurer ]
   * d/control:
     - Update Vcs-* fields to point to new repository on salsa.debian.org.
 
- -- Jonas Meurer <jonas@freesources.org>  Wed, 28 Feb 2018 23:13:43 +0100
+  [ Pierre-Elliott Bécue ]
+  * d/control:
+    - Raise the dehbelper build-dependency minimal version to 11
+  * d/compat:
+    - Bump level to 11
+
+ -- Pierre-Elliott Bécue <becue@crans.org>  Fri, 16 Mar 2018 22:14:29 +0100
 
 django-mailman3 (1.1.0-3) unstable; urgency=medium
 
