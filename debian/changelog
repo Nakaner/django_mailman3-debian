@@ -9,8 +9,9 @@ django-mailman3 (1.1.0-4) unstable; urgency=medium
     - Raise the dehbelper build-dependency minimal version to 11
   * d/compat:
     - Bump level to 11
+  * d/copyright@Format: Use the https url instead of the http one
 
- -- Pierre-Elliott Bécue <becue@crans.org>  Fri, 16 Mar 2018 22:14:29 +0100
+ -- Pierre-Elliott Bécue <becue@crans.org>  Fri, 16 Mar 2018 22:16:49 +0100
 
 django-mailman3 (1.1.0-3) unstable; urgency=medium
 
