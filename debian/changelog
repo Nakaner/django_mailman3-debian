@@ -12,8 +12,10 @@ django-mailman3 (1.1.0-4) unstable; urgency=medium
   * d/copyright@Format: Use the https url instead of the http one
   * d/s/lintian-overrides: Override django-mailman3 source:
     python-foo-but-no-python3-foo python-django-mailman3 with comments.
+  * Move django's static directory in /usr/share/python-django-mailman3
+    directory.
 
- -- Pierre-Elliott Bécue <becue@crans.org>  Fri, 16 Mar 2018 22:20:39 +0100
+ -- Pierre-Elliott Bécue <becue@crans.org>  Fri, 16 Mar 2018 22:25:21 +0100
 
 django-mailman3 (1.1.0-3) unstable; urgency=medium
 

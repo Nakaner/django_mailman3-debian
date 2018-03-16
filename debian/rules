@@ -13,5 +13,13 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	done
 endif
 
+override_dh_auto_install:
+	dh_auto_install
+	# Move static files outside of the lib directory
+	mv debian/python-django-mailman3/usr/lib/python2.7/dist-packages/django_mailman3/static \
+		debian/python-django-mailman3/usr/share/python-django-mailman3/
+	ln -sf /usr/share/python-django-mailman3/static \
+		debian/python-django-mailman3/usr/lib/python2.7/dist-packages/django_mailman3/static
+
 get-orig-source:
 	uscan --verbose --rename
