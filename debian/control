@@ -7,7 +7,7 @@ Priority: optional
 Build-Depends: debhelper (>= 11),
                dh-python,
                python-all,
-               python-django,
+               python-django (>= 1:1.11~),
                python-django-allauth,
                python-django-gravatar2,
                python-mailmanclient,
@@ -22,7 +22,7 @@ X-Python-Version: >=2.7
 
 Package: python-django-mailman3
 Architecture: all
-Depends: python-django,
+Depends: python-django (>= 1:1.11~),
          python-django-allauth,
          python-django-gravatar2,
          python-mailmanclient,
