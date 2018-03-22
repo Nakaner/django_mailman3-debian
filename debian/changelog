@@ -2,8 +2,9 @@ django-mailman3 (1.1.0-5) unstable; urgency=medium
 
   * d/control:
     - Forces the python-django dependency to be >= 1:1.11
+    - Lowers the build-dependency on dh to 11~
 
- -- Pierre-Elliott Bécue <becue@crans.org>  Thu, 22 Mar 2018 13:01:04 +0100
+ -- Pierre-Elliott Bécue <becue@crans.org>  Thu, 22 Mar 2018 13:02:45 +0100
 
 django-mailman3 (1.1.0-4) unstable; urgency=medium
 
