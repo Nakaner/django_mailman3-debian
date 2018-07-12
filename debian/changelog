@@ -3,6 +3,10 @@ django-mailman3 (1.2.0-1) UNRELEASED; urgency=medium
   * New upstream release
     - Adds Python v3 support, drops Python v2 support
     - Adds new dependency on python3-django-compressor
+  * d/control:
+    - Bump standards-version to 4.1.5
+  * d/rules:
+    - Remove obsolete target 'get-orig-source'
 
  -- Jonas Meurer <jonas@freesources.org>  Fri, 13 Jul 2018 15:25:00 +0200
 
