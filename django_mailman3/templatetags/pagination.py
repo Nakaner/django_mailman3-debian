@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -51,6 +51,6 @@ def paginator(context, page, qsprefix='', bydate=False):
         label_next=label_next,
         page_key="{}page".format(qsprefix),
         count_key="{}count".format(qsprefix),
-        per_page_options=[10, 50, 100, 200],  # move to settings?
+        per_page_options=[10, 25, 50, 100, 200],  # move to settings?
         ))
     return context

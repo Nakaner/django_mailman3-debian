@@ -4,6 +4,7 @@ README.rst
 setup.py
 tox.ini
 django_mailman3/__init__.py
+django_mailman3/admin.py
 django_mailman3/apps.py
 django_mailman3/context_processors.py
 django_mailman3/forms.py
@@ -57,6 +58,7 @@ django_mailman3/templates/django_mailman3/bootstrap/form-horizontal.html
 django_mailman3/templates/django_mailman3/bootstrap/form.html
 django_mailman3/templates/django_mailman3/paginator/pagination.html
 django_mailman3/templates/django_mailman3/profile/base.html
+django_mailman3/templates/django_mailman3/profile/delete_profile.html
 django_mailman3/templates/django_mailman3/profile/profile.html
 django_mailman3/templates/openid/login.html
 django_mailman3/templates/socialaccount/connections.html
@@ -67,7 +69,14 @@ django_mailman3/templatetags/bootstrap_tags.py
 django_mailman3/templatetags/pagination.py
 django_mailman3/tests/__init__.py
 django_mailman3/tests/settings_test.py
+django_mailman3/tests/test_bootstrap_tags.py
+django_mailman3/tests/test_cache.py
+django_mailman3/tests/test_context_processors.py
+django_mailman3/tests/test_delete_account.py
+django_mailman3/tests/test_forms.py
+django_mailman3/tests/test_lib_auth_fedora_provider.py
 django_mailman3/tests/test_mailman.py
+django_mailman3/tests/test_middlewares.py
 django_mailman3/tests/test_paginator.py
 django_mailman3/tests/test_scrub.py
 django_mailman3/tests/test_signals.py
@@ -79,6 +88,7 @@ django_mailman3/tests/testdata/attachment-2.txt
 django_mailman3/tests/testdata/attachment-3.txt
 django_mailman3/tests/testdata/attachment-4.txt
 django_mailman3/tests/testdata/attachment-5.txt
+django_mailman3/tests/testdata/email-bad-filename.txt
 django_mailman3/tests/testdata/html-email-1.txt
 django_mailman3/tests/testdata/html-email-2.txt
 django_mailman3/tests/testdata/payload-iso8859.txt

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -20,35 +20,29 @@
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
 
-from __future__ import absolute_import, unicode_literals
 
 import pytz
 
 from django.conf import settings
-from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.db import models
 
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                related_name="mailman_profile")
+                                related_name="mailman_profile",
+                                on_delete=models.CASCADE)
     TIMEZONES = sorted([(tz, tz) for tz in pytz.common_timezones])
     timezone = models.CharField(max_length=100, choices=TIMEZONES, default="")
 
-    def __unicode__(self):
-        return '<Mailman profile for %s>' % (unicode(self.user.username))
-
-
-admin.site.register(Profile)
+    def __str__(self):
+        return '<Mailman profile for %s>' % self.user.username
 
 
 class MailDomain(models.Model):
-    site = models.ForeignKey(Site, related_name="mailman_domains")
+    site = models.ForeignKey(Site, related_name="mailman_domains",
+                             on_delete=models.CASCADE)
     mail_domain = models.CharField(max_length=255, db_index=True, unique=True)
 
-    def __unicode__(self):
-        return '<Mailman domain %s>' % (unicode(self.mail_domain))
-
-
-admin.site.register(MailDomain)
+    def __str__(self):
+        return '<Mailman domain %s>' % self.mail_domain
