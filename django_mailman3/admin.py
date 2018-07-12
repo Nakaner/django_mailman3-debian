@@ -16,15 +16,12 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Django-Mailman.  If not, see <http://www.gnu.org/licenses/>.
+#
 
-"""
-This file is the main URL config for a Django website including Django-Mailman.
-"""
 
-from django.conf.urls import include, url
+from django.contrib import admin
+from django_mailman3.models import Profile, MailDomain
 
-urlpatterns = [
-    url(r'', include('django_mailman3.urls')),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'', include('django.contrib.auth.urls')),
-]
+
+admin.site.register(Profile)
+admin.site.register(MailDomain)

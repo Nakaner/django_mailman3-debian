@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -20,7 +20,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-mailman3",
-    version='1.1.0',
+    version='1.2.0',
     description="Django library to help interaction with Mailman",
     long_description=open('README.rst').read(),
     maintainer="Mailman Developers",
@@ -33,15 +33,16 @@ setup(
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Topic :: Communications :: Email :: Mailing List Servers",
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
         ],
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'Django >= 1.8',
+        'Django >= 1.11',
         'mailmanclient',
         'django-allauth',
         'django-gravatar2 >= 1.0.6',
         'pytz',
+        'django-compressor'
     ],
 )

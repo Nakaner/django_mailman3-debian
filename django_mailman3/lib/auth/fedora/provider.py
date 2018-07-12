@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 1998-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2012-2018 by the Free Software Foundation, Inc.
 #
-# This file is part of HyperKitty.
+# This file is part of Django-Mailman.
 #
 # HyperKitty is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
@@ -14,27 +14,23 @@
 # more details.
 #
 # You should have received a copy of the GNU General Public License along with
-# HyperKitty.  If not, see <http://www.gnu.org/licenses/>.
+# Django-Mailman.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
-
-from __future__ import absolute_import, unicode_literals
-
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
-from django.core.urlresolvers import reverse
-from django.utils.http import urlencode
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.openid.provider import (
     OpenIDAccount, OpenIDProvider)
-
 from allauth.socialaccount.providers.openid.utils import (
     get_email_from_response)
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
+from django.utils.http import urlencode
+from urllib.parse import urlparse
 
 
 def extract_username(url):
@@ -64,6 +60,12 @@ class FedoraProvider(OpenIDProvider):
         return url
 
     def extract_username(self, data):
+        """
+        https://fedoraproject.org/wiki/OpenID
+        For fedoraproject.org, the identity_url looks like:
+
+        https://username.id.fedoraproject.org
+        """
         return extract_username(data.identity_url)
 
     def extract_common_fields(self, data):

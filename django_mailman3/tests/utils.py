@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -18,17 +18,18 @@
 # Django-Mailman.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from __future__ import absolute_import, print_function, unicode_literals
 
-import logging
 import os
-from StringIO import StringIO
-
+import sys
+import logging
 import mailmanclient
+
+from contextlib import contextmanager
 from django.contrib.messages.storage.cookie import CookieStorage
 from django.core.cache import cache
 from django.utils.timezone import now
 from django.test import RequestFactory, TestCase as DjangoTestCase
+from io import StringIO
 from mock import Mock, patch
 
 
@@ -93,6 +94,10 @@ class FakeMMPage():
     @property
     def has_next(self):
         return self._count * self._page < len(self.entries)
+
+    @property
+    def total_size(self):
+        return len(self.entries)
 
 
 class FakeMMAddress:
@@ -159,3 +164,14 @@ class TestCase(DjangoTestCase):
         self._mm_client_patcher.stop()
         cache.clear()
         super(TestCase, self)._post_teardown()
+
+
+@contextmanager
+def captured_output():
+    new_out, new_err = StringIO(), StringIO()
+    old_out, old_err = sys.stdout, sys.stderr
+    try:
+        sys.stdout, sys.stderr = new_out, new_err
+        yield sys.stdout, sys.stderr
+    finally:
+        sys.stdout, sys.stderr = old_out, old_err

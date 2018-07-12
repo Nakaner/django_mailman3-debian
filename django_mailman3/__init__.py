@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -19,8 +19,5 @@
 #
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
-
-from __future__ import absolute_import, unicode_literals
-
 
 default_app_config = 'django_mailman3.apps.DjangoMailman3Config'

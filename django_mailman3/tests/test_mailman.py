@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -20,9 +20,7 @@
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
 
-from __future__ import absolute_import, print_function, unicode_literals
-
-from urllib2 import HTTPError
+from urllib.error import HTTPError
 
 from allauth.account.models import EmailAddress
 from django.contrib.auth.models import User
@@ -47,6 +45,14 @@ class GetMailmanUserTestCase(TestCase):
         mm_user = mailman.get_mailman_user(self.user)
         self.assertIs(mm_user, self.mm_user)
 
+    @patch('django_mailman3.lib.mailman.get_mailman_user',
+           return_value=None)
+    def test_get_nonexistent_user(self, mock_method):
+        # Test create user fails and get_mailman_user returns None.
+        mm_user = mailman.get_mailman_user(self.mm_user)
+        self.assertIsNone(mm_user)
+        mock_method.assert_called_with(self.mm_user)
+
     def test_create_user(self):
         self.mailman_client.get_user.side_effect = \
             HTTPError(None, 404, None, None, None)
@@ -62,8 +68,12 @@ class GetMailmanUserTestCase(TestCase):
     def test_connection_failed(self):
         self.mailman_client.get_user.side_effect = \
             HTTPError(None, 500, None, None, None)
-        mm_user = mailman.get_mailman_user(self.user)
+        with patch('django_mailman3.lib.mailman.logger') as mock_logging:
+            mm_user = mailman.get_mailman_user(self.user)
+        # Make sure that the returned user is None.
         self.assertIsNone(mm_user)
+        # Make sure the failure is logged.
+        mock_logging.warning.assert_called()
 
     def test_get_user_id(self):
         mm_user_id = mailman.get_mailman_user_id(self.user)
@@ -115,13 +125,23 @@ class AddUserToMailmanTestCase(TestCase):
         secondary_address = Mock()
         secondary_address.email = "secondary@example.com"
         secondary_address.verified_on = None
-        secondary_address.__unicode__ = lambda self: self.email
+        secondary_address.__str__ = lambda self: self.email
         self.mm_user.addresses.append(secondary_address)
         self.mm_addresses["secondary@example.com"] = secondary_address
         mailman.add_address_to_mailman_user(self.user, "secondary@example.com")
         # The secondary address must only have been verified.
         self.assertFalse(self.mm_user.add_address.called)
         secondary_address.verify.assert_called_with()
+
+    @patch('django_mailman3.lib.mailman.logger')
+    def test_add_new_address(self, mock_log):
+        secondary_address = Mock()
+        secondary_address.email = "secondary@example.com"
+        with patch('django_mailman3.lib.mailman.get_mailman_user',
+                   return_value=None):
+            # If the user does not exist, function return and logs the result.
+            mailman.add_address_to_mailman_user(self.user, secondary_address)
+            mock_log.info.assert_called()
 
 
 class SyncEmailAddressesTestCase(TestCase):

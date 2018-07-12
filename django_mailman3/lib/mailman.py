@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -20,9 +20,7 @@
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
 
-from __future__ import absolute_import, unicode_literals
-
-from urllib2 import HTTPError
+from urllib.error import HTTPError
 
 from allauth.account.models import EmailAddress
 from django.conf import settings
@@ -80,7 +78,7 @@ def get_mailman_user_id(user):
     mm_user = get_mailman_user(user)
     if mm_user is None:
         return None
-    return unicode(mm_user.user_id)
+    return str(mm_user.user_id)
 
 
 def get_subscriptions(user):
@@ -112,7 +110,7 @@ def add_address_to_mailman_user(user, address):
         logger.info("Could not find or create a Mailman user for %s",
                     user.username)
         return
-    existing_addresses = [unicode(addr) for addr in mm_user.addresses]
+    existing_addresses = [str(addr) for addr in mm_user.addresses]
     if address not in existing_addresses:
         # Associate it with the user.
         try:

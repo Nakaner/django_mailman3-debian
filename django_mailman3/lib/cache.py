@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2014-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2014-2018 by the Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -20,14 +20,14 @@
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 
 
-from __future__ import absolute_import, print_function, unicode_literals
-
 from django.core.cache import cache as django_cache
 
 
 MISSING = object()
 
 
+# TODO: New versions of Django, starting 1.9 have get_or_set included.
+# Remove the proxy below when we drop support for 1.9
 class CacheProxy:
 
     def __init__(self):

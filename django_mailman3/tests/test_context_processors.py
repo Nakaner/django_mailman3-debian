@@ -17,14 +17,21 @@
 # You should have received a copy of the GNU General Public License along with
 # Django-Mailman.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
-This file is the main URL config for a Django website including Django-Mailman.
-"""
 
-from django.conf.urls import include, url
+from django.test import TestCase, RequestFactory, override_settings
+from django_mailman3.context_processors import common
 
-urlpatterns = [
-    url(r'', include('django_mailman3.urls')),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'', include('django.contrib.auth.urls')),
-]
+
+class TestContextProcessors(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    @override_settings(LOGIN_URL='/login', LOGOUT_URL='/logout',
+                       ALLOWED_HOSTS=['example.com'])
+    def test_common_with_all_vars(self, *args, **kwargs):
+        request = self.factory.get('/', HTTP_HOST='example.com')
+        context = common(request)
+        self.assertEqual(context['site_name'], 'example.com')
+        self.assertEqual(context['LOGIN_URL'], '/login')
+        self.assertEqual(context['LOGOUT_URL'], '/logout')

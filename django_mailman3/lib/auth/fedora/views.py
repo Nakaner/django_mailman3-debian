@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 1998-2017 by the Free Software Foundation, Inc.
+# Copyright (C) 2012-2018 by the Free Software Foundation, Inc.
 #
-# This file is part of HyperKitty.
+# This file is part of Django-Mailman.
 #
 # HyperKitty is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
@@ -14,15 +14,17 @@
 # more details.
 #
 # You should have received a copy of the GNU General Public License along with
-# HyperKitty.  If not, see <http://www.gnu.org/licenses/>.
+# Django-Mailman.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
 
-from __future__ import absolute_import, unicode_literals
 
 from django.shortcuts import render
-from django.core.urlresolvers import reverse
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
