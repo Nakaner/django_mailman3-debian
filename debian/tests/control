@@ -1,5 +1,6 @@
-Test-Command: python2.7 $(which django-admin) test --pythonpath=. --settings=django_mailman3.tests.settings_test django_mailman3
+Test-Command: for python3 in $(shell py3versions -r); do $python3 $(which django-admin) test --pythonpath=. --settings=django_mailman3.tests.settings_test django_mailman3; done
 Depends: @,
-         python-mock
+         python3-all,
+         python3-mock
 Restrictions: build-needed,
               allow-stderr

@@ -3,23 +3,23 @@
 export PYBUILD_NAME=django-mailman3
 
 %:
-	dh $@ --with python2 --buildsystem=pybuild
+	dh $@ --with python3 --buildsystem=pybuild
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	set -e; \
-	for python in $(shell pyversions -r); do \
-                $$python $(shell which django-admin) test --pythonpath=. --settings=django_mailman3.tests.settings_test django_mailman3; \
+	for python3 in $(shell py3versions -r); do \
+                $$python3 $(shell which django-admin) test --pythonpath=. --settings=django_mailman3.tests.settings_test django_mailman3; \
 	done
 endif
 
 override_dh_auto_install:
 	dh_auto_install
 	# Move static files outside of the lib directory
-	mv debian/python-django-mailman3/usr/lib/python2.7/dist-packages/django_mailman3/static \
-		debian/python-django-mailman3/usr/share/python-django-mailman3/
-	ln -sf /usr/share/python-django-mailman3/static \
-		debian/python-django-mailman3/usr/lib/python2.7/dist-packages/django_mailman3/static
+	mv debian/python3-django-mailman3/usr/lib/$(shell py3versions -d)/dist-packages/django_mailman3/static \
+		debian/python3-django-mailman3/usr/share/python3-django-mailman3/
+	ln -sf /usr/share/python3-django-mailman3/static \
+		debian/python3-django-mailman3/usr/lib/$(shell py3versions -d)/dist-packages/django_mailman3/static
 
 get-orig-source:
 	uscan --verbose --rename
