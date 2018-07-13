@@ -13,10 +13,10 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	done
 endif
 
-override_dh_auto_install:
-	dh_auto_install
+override_dh_python3:
+	dh_python3
 	# Move static files outside of the lib directory
-	mv debian/python3-django-mailman3/usr/lib/$(shell py3versions -d)/dist-packages/django_mailman3/static \
+	mv debian/python3-django-mailman3/usr/lib/python3/dist-packages/django_mailman3/static \
 		debian/python3-django-mailman3/usr/share/python3-django-mailman3/
-	ln -sf /usr/share/python3-django-mailman3/static \
-		debian/python3-django-mailman3/usr/lib/$(shell py3versions -d)/dist-packages/django_mailman3/static
+	dh_link usr/share/python3-django-mailman3/static \
+		usr/lib/python3/dist-packages/django_mailman3/static
