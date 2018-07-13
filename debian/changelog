@@ -4,7 +4,7 @@ django-mailman3 (1.2.0-1) UNRELEASED; urgency=medium
     - Adds Python v3 support, drops Python v2 support
     - Adds new dependency on python3-django-compressor
 
- -- Jonas Meurer <jonas@freesources.org>  Thu, 12 Jul 2018 15:00:46 +0200
+ -- Jonas Meurer <jonas@freesources.org>  Fri, 13 Jul 2018 15:25:00 +0200
 
 django-mailman3 (1.1.0-5) unstable; urgency=medium
 
