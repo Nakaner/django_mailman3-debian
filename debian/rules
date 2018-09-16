@@ -16,6 +16,7 @@ endif
 override_dh_python3:
 	dh_python3
 	# Move static files outside of the lib directory
+	mkdir -p debian/python3-django-mailman3/usr/share/python3-django-mailman3
 	mv debian/python3-django-mailman3/usr/lib/python3/dist-packages/django_mailman3/static \
 		debian/python3-django-mailman3/usr/share/python3-django-mailman3/
 	dh_link usr/share/python3-django-mailman3/static \
