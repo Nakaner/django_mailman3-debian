@@ -31,6 +31,8 @@ Depends: python3-django (>= 1:1.11~),
          python3-tz,
          ${misc:Depends},
          ${python3:Depends}
+Conflicts: python-django-mailman3
+Replaces: python-django-mailman3
 Description: Django library to help interaction with Mailman3 (Python 3 version)
  This package contains libraries and templates for Django-based interfaces
  interacting with Mailman.
