@@ -6,7 +6,7 @@ django-mailman3 (1.2.0-1) unstable; urgency=medium
       (Closes: #903100)
   * d/control:
     - Add Conflicts/Replaces on python-django-mailman3
-    - Bump standards-version to 4.1.5
+    - Bump standards-version to 4.2.1, no changes required
   * d/rules:
     - Remove obsolete target 'get-orig-source'
 
@@ -19,7 +19,7 @@ django-mailman3 (1.2.0-1) unstable; urgency=medium
     - Upstream's GPG signing key changed. Use
       541EA0448453394FF77A0ECC9D9B2BA061D0A67C (Abhilash Raj) now.
 
- -- Jonas Meurer <jonas@freesources.org>  Mon, 17 Sep 2018 12:42:50 +0200
+ -- Jonas Meurer <jonas@freesources.org>  Mon, 17 Sep 2018 12:43:10 +0200
 
 django-mailman3 (1.1.0-5) unstable; urgency=medium
 
