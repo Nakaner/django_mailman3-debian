@@ -15,8 +15,10 @@ endif
 
 override_dh_python3:
 	dh_python3
-	# Move static files outside of the lib directory
+	# Due to bug #908999, dh_python3 removes the empty directory
+	# 'usr/share/python3-django-postorius', so run mkdir manually.
 	mkdir -p debian/python3-django-mailman3/usr/share/python3-django-mailman3
+	# Move static files outside of the lib directory
 	mv debian/python3-django-mailman3/usr/lib/python3/dist-packages/django_mailman3/static \
 		debian/python3-django-mailman3/usr/share/python3-django-mailman3/
 	dh_link usr/share/python3-django-mailman3/static \
