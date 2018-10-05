@@ -2,8 +2,9 @@ django-mailman3 (1.2.0-3) unstable; urgency=medium
 
   * d/control:
     - Set my uploader's address to my Debian account
+    - Set explicit dependency on python3-mailmanclient (>= 3.2.0)
 
- -- Pierre-Elliott Bécue <peb@debian.org>  Fri, 05 Oct 2018 21:53:07 +0200
+ -- Pierre-Elliott Bécue <peb@debian.org>  Fri, 05 Oct 2018 21:55:12 +0200
 
 django-mailman3 (1.2.0-2) unstable; urgency=medium
 
