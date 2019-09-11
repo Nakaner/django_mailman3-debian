@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -20,7 +20,8 @@
 
 
 from django.contrib import admin
-from django_mailman3.models import Profile, MailDomain
+
+from django_mailman3.models import MailDomain, Profile
 
 
 admin.site.register(Profile)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -21,17 +21,15 @@
 #
 
 
-from allauth.account.models import EmailAddress
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.utils.timezone import get_current_timezone
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.translation import gettext as _
+
+from allauth.account.models import EmailAddress
 
 from django_mailman3.forms import UserProfileForm
 from django_mailman3.lib.mailman import get_mailman_user
@@ -52,7 +50,7 @@ def user_profile(request):
         "username": request.user.username,
         "first_name": request.user.first_name,
         "last_name": request.user.last_name,
-        "timezone": get_current_timezone().zone,
+        "timezone": profile.timezone,
         }
 
     if request.method == 'POST':
@@ -71,9 +69,9 @@ def user_profile(request):
                             request.user.first_name, request.user.last_name)
                     mm_user.save()
                 messages.success(
-                    request, "The profile was successfully updated.")
+                    request, _("The profile was successfully updated."))
             else:
-                messages.success(request, "No change detected.")
+                messages.success(request, _("No change detected."))
             return redirect(reverse('mm_user_profile'))
     else:
         form = UserProfileForm(initial=initial_data)
@@ -106,7 +104,7 @@ def delete_account(request):
         if mm_user:
             mm_user.delete()
         request.user.delete()
-        messages.success(request, "Successfully deleted account")
+        messages.success(request, _("Successfully deleted account"))
         return HttpResponseRedirect('/')
     return render(request, 'django_mailman3/profile/delete_profile.html',
                   {'delete_page': True})

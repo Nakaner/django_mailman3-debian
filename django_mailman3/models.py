@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -21,18 +21,21 @@
 #
 
 
-import pytz
-
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.db import models
+
+import pytz
+
+
+#: A list of common timezones as options for a user to choose their own.
+TIMEZONES = sorted([(tz, tz) for tz in pytz.common_timezones])
 
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 related_name="mailman_profile",
                                 on_delete=models.CASCADE)
-    TIMEZONES = sorted([(tz, tz) for tz in pytz.common_timezones])
     timezone = models.CharField(max_length=100, choices=TIMEZONES, default="")
 
     def __str__(self):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -24,15 +24,16 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from django_mailman3.models import Profile
+
+from django_mailman3.models import TIMEZONES
 
 
 class UserProfileForm(forms.Form):
-    username = forms.CharField(required=True)
-    first_name = forms.CharField()
-    last_name = forms.CharField()
+    username = forms.CharField(required=True, label=_('Username'))
+    first_name = forms.CharField(label=_('First name'))
+    last_name = forms.CharField(label=_('Last name'))
     timezone = forms.ChoiceField(
-        label="Time zone", choices=Profile.TIMEZONES)
+        label=_('Time zone'), choices=TIMEZONES)
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
