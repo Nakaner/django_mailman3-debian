@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2018-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -21,6 +21,7 @@
 
 from django.contrib.auth.models import User
 from django.urls import reverse
+
 from mock import Mock
 
 from django_mailman3.models import Profile

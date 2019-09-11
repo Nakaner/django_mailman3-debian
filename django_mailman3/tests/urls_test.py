@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -22,6 +22,7 @@ This file is the main URL config for a Django website including Django-Mailman.
 """
 
 from django.conf.urls import include, url
+
 
 urlpatterns = [
     url(r'', include('django_mailman3.urls')),

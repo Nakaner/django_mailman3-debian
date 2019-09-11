@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -24,10 +24,10 @@
 from django.template import Context
 from django.test import RequestFactory, SimpleTestCase
 
-from django_mailman3.lib.paginator import paginate, MailmanPaginator
+from django_mailman3.lib.paginator import MailmanPaginator, paginate
 from django_mailman3.templatetags.pagination import (
     add_to_query_string, paginator)
-from django_mailman3.tests.utils import TestCase, FakeMMPage
+from django_mailman3.tests.utils import FakeMMPage, TestCase
 
 
 class TestMailmanPaginator(TestCase):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2017-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -18,12 +18,12 @@
 
 import os
 import re
-
+from email.errors import HeaderParseError
+from email.header import decode_header, make_header
+from email.message import EmailMessage
 from enum import Enum
 from mimetypes import guess_all_extensions
-from email.errors import HeaderParseError
-from email.header import make_header, decode_header
-from email.message import EmailMessage
+
 
 # Path characters for common platforms
 PRE = re.compile(r'[/\\:]')

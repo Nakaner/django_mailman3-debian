@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2012-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -19,18 +19,17 @@
 # Author: Aurelien Bompard <abompard@fedoraproject.org>
 #
 
+from urllib.parse import urlparse
+
+from django.urls import reverse
+from django.utils.http import urlencode
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.openid.provider import (
     OpenIDAccount, OpenIDProvider)
 from allauth.socialaccount.providers.openid.utils import (
     get_email_from_response)
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    from django.urls import reverse
-from django.utils.http import urlencode
-from urllib.parse import urlparse
 
 
 def extract_username(url):

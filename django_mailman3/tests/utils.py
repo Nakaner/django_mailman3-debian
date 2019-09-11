@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -19,17 +19,19 @@
 #
 
 
+import logging
 import os
 import sys
-import logging
-import mailmanclient
-
 from contextlib import contextmanager
+from io import StringIO
+
 from django.contrib.messages.storage.cookie import CookieStorage
 from django.core.cache import cache
+from django.test import RequestFactory
+from django.test import TestCase as DjangoTestCase
 from django.utils.timezone import now
-from django.test import RequestFactory, TestCase as DjangoTestCase
-from io import StringIO
+
+import mailmanclient
 from mock import Mock, patch
 
 
@@ -64,6 +66,7 @@ class FakeMMList:
             "subject_prefix": "[%s] " % self.display_name,
             "created_at": now().isoformat(),
             "archive_policy": "public",
+            "advertised": False,
             }
 
 

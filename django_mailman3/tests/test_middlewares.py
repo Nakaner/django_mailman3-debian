@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2017-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2017-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -19,11 +19,12 @@
 #
 
 
-from mock import Mock
 from django.conf import settings
-from django.utils import timezone
-from django.test import TestCase
 from django.core.exceptions import ObjectDoesNotExist
+from django.test import TestCase
+from django.utils import timezone
+
+from mock import Mock
 
 from django_mailman3.middleware import PaginationMiddleware, TimezoneMiddleware
 

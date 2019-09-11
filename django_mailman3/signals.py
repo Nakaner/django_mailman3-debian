@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -21,23 +21,25 @@
 #
 
 
-from allauth.account.models import EmailAddress
-from allauth.account.signals import (
-    email_confirmed, user_signed_up, user_logged_in, email_removed)
-from allauth.socialaccount.signals import social_account_added
+import logging
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.db.models.signals import post_save
-from django.dispatch import receiver, Signal
+from django.dispatch import Signal, receiver
 
-from django_mailman3.lib.cache import cache
+from allauth.account.models import EmailAddress
+from allauth.account.signals import (
+    email_confirmed, email_removed, user_logged_in, user_signed_up)
+from allauth.socialaccount.signals import social_account_added
+
 from django_mailman3.lib.mailman import (
     add_address_to_mailman_user, get_mailman_user, get_subscriptions,
     sync_email_addresses)
 from django_mailman3.models import Profile
 
 
-import logging
 logger = logging.getLogger(__name__)
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -21,11 +21,11 @@
 #
 
 import unittest
+from email import message_from_binary_file, message_from_file, policy
+from traceback import format_exc
 
-from email import policy, message_from_binary_file, message_from_file
 from django_mailman3.lib.scrub import Scrubber
 from django_mailman3.tests.utils import get_test_file
-from traceback import format_exc
 
 
 class TestScrubber(unittest.TestCase):

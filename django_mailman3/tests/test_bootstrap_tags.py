@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2017-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -17,10 +17,10 @@
 # Django-Mailman.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.test import SimpleTestCase
-from django.template import Context, Template
-from django.forms import Form, EmailField, DateField, ChoiceField
+from django.forms import ChoiceField, DateField, EmailField, Form
 from django.forms.widgets import CheckboxInput
+from django.template import Context, Template
+from django.test import SimpleTestCase
 
 from django_mailman3.templatetags.bootstrap_tags import (
     fieldtype, fieldtype_is, is_checkbox)

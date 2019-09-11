@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2012-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Postorius.
 #
@@ -17,11 +17,8 @@
 # Postorius.  If not, see <http://www.gnu.org/licenses/>.
 
 from django import template
-try:
-    from django.forms.boundfield import BoundField
-except ImportError:
-    # For Django <=1.9
-    from django.forms.forms import BoundField             # pragma: nocover
+from django.forms.boundfield import BoundField
+
 
 register = template.Library()
 
@@ -88,7 +85,7 @@ def bootstrap_form(context, form, button=None):
                         takes_context=True)
 def bootstrap_form_horizontal(
         context, form, size_left=2, size_right=8, button=None,
-        fold_class='sm'):
+        fold_class='md'):
     """
     Given a form object, renders the form horizontally using the bootstrap
     template.

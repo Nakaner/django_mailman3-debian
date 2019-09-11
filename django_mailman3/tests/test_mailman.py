@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2018 by the Free Software Foundation, Inc.
+# Copyright (C) 2016-2019 by the Free Software Foundation, Inc.
 #
 # This file is part of Django-Mailman.
 #
@@ -22,9 +22,10 @@
 
 from urllib.error import HTTPError
 
-from allauth.account.models import EmailAddress
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+
+from allauth.account.models import EmailAddress
 from mock import Mock, call, patch
 
 from django_mailman3.lib import mailman
