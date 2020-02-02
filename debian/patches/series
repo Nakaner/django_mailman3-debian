@@ -1,1 +1,3 @@
 0001-Bump-django-maximal-version-as-django_mailman3-seems.patch
+0002-disable-gravatar.patch
+0003-footer-links.patch

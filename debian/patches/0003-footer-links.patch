@@ -1,0 +1,126 @@
+From 25e1ddfb36ce71c0c2ef27892582f3172d2c803d Mon Sep 17 00:00:00 2001
+From: Michael <nakaner@gmx.net>
+Date: Sat, 1 Feb 2020 23:14:18 +0100
+Subject: [PATCH] Provide context information with links for page footers
+
+This enables system administrators to add additional links to the page
+footer, such as link to a contact page/imprint, privacy policy etc.
+---
+ django_mailman3.egg-info/SOURCES.txt        |  1 +
+ django_mailman3/context_processors.py       |  1 +
+ django_mailman3/templatetags/footer_link.py | 55 +++++++++++++++++++++++++++++
+ django_mailman3/tests/settings_test.py      | 16 +++++++++
+ 4 files changed, 73 insertions(+)
+ create mode 100644 django_mailman3/templatetags/footer_link.py
+
+diff --git a/django_mailman3.egg-info/SOURCES.txt b/django_mailman3.egg-info/SOURCES.txt
+index 5f90553..cad7b00 100644
+--- a/django_mailman3.egg-info/SOURCES.txt
++++ b/django_mailman3.egg-info/SOURCES.txt
+@@ -191,6 +191,7 @@ django_mailman3/templates/socialaccount/signup.html
+ django_mailman3/templates/socialaccount/snippets/provider_list.html
+ django_mailman3/templatetags/__init__.py
+ django_mailman3/templatetags/bootstrap_tags.py
++django_mailman3/templatetags/footer_link.py
+ django_mailman3/templatetags/gravatar_wrapper.py
+ django_mailman3/templatetags/pagination.py
+ django_mailman3/tests/__init__.py
+diff --git a/django_mailman3/context_processors.py b/django_mailman3/context_processors.py
+index e07cecf..a566ccf 100644
+--- a/django_mailman3/context_processors.py
++++ b/django_mailman3/context_processors.py
+@@ -30,4 +30,5 @@ def common(request):
+     for name in ('LOGIN_URL', 'LOGOUT_URL', 'INSTALLED_APPS'):
+         context[name] = getattr(settings, name, None)
+     context["site_name"] = get_current_site(request).name
++    context["FOOTER_LINKS"] = getattr(settings, "FOOTER_LINKS", [])
+     return context
+diff --git a/django_mailman3/templatetags/footer_link.py b/django_mailman3/templatetags/footer_link.py
+new file mode 100644
+index 0000000..38147c9
+--- /dev/null
++++ b/django_mailman3/templatetags/footer_link.py
+@@ -0,0 +1,55 @@
++# -*- coding: utf-8 -*-
++#
++# Copyright (C) 2012-2019 by the Free Software Foundation, Inc.
++#
++# This file is part of Django-Mailman.
++#
++# HyperKitty is free software: you can redistribute it and/or modify it under
++# the terms of the GNU General Public License as published by the Free
++# Software Foundation, either version 3 of the License, or (at your option)
++# any later version.
++#
++# HyperKitty is distributed in the hope that it will be useful, but WITHOUT
++# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
++# more details.
++#
++# You should have received a copy of the GNU General Public License along with
++# HyperKitty.  If not, see <http://www.gnu.org/licenses/>.
++#
++# Author: Michael Reichert <osm-ml@michreichert.de>
++#
++
++from django import template
++from django.utils.html import format_html
++from django.utils.safestring import mark_safe
++from django.utils import translation
++
++register = template.Library()
++
++
++def get_link_text_translation(footer_link_dict, language):
++    default_text = footer_link_dict.get('text', '')
++    if not language:
++        return default_text
++    # check if language is available
++    trans = footer_link_dict.get('translations', {})
++    text = trans.get(language)
++    if text:
++        return text;
++    # get more generic variant
++    language = language.split('-')[0]
++    return trans.get(language, default_text)
++
++
++@register.simple_tag
++def footer_link(footer_link_dict):
++    """
++    Return an <a> tag with a link text for being used in the page footer.
++    """
++    url = footer_link_dict.get('url', None)
++    text = get_link_text_translation(footer_link_dict, translation.get_language()) 
++    if not url or not text:
++        return mark_safe('')
++    a_tag = format_html('<a href="{}">{}</a>', url, text)
++    return mark_safe(a_tag)
+diff --git a/django_mailman3/tests/settings_test.py b/django_mailman3/tests/settings_test.py
+index 8d875d9..089ef1d 100644
+--- a/django_mailman3/tests/settings_test.py
++++ b/django_mailman3/tests/settings_test.py
+@@ -190,4 +190,20 @@ CACHES = {
+     }
+ }
+ 
++# Disable Gravatar for privacy reasons
+ GRAVATAR_DISABLED = False
++
++# Additional links for the footer of every page
++# Properties:
++#   url: URL to link to
++#   text: link text (English)
++#   translations: dictionary of translated link text where the language codes are the keys
++FOOTER_LINKS = [
++    {
++        'url': '/privacy.html',
++        'text': 'Privacy Policy',
++        'translations': {
++            'de': 'Datenschutzerklärung'
++        }
++    }
++]
+-- 
+2.7.4
+

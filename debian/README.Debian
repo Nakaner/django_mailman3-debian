@@ -1,0 +1,35 @@
+Django-Mailman3 Debian Package
+==============================
+
+Footer links
+------------
+
+Version 1.3.0-2 of the package introduces a new mechanism to add additional
+links in the footer by the system administrator. It allows you to add links
+required by law such as a privacy policy or contact information without editing
+the templates itself. Just add the following Python code snippet to
+/etc/mailman3/mailman3-web.py:
+
+FOOTER_LINKS = [
+    {
+        'url': '/privacy.html',
+        'text': 'Privacy Policy',
+        'translations': {
+            'de': 'Datenschutzerklärung'
+        }
+    },
+]
+
+The link title can be localized.
+
+
+Disable Gravatar
+----------------
+
+Version 1.3.0-2 of the package allows system administrators to disable
+Gravatar. This avoids requests to secure.gravatar.com which is seen as a
+unnecessary leak of personal data. The leak is closed by just displaying a
+generic avatar image for all accounts. The patch does not introduce an
+independent avatar management by Hyperkitty/Postorius.
+
+ -- Michael Reichert <osm-ml@michreichert.de>  Sun, 02 Feb 2020 20:19:25 +0100

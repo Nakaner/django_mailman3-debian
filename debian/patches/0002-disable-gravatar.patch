@@ -1,0 +1,130 @@
+From 953353713d1bdb371ff3e16a9d668963a4f4f10b Mon Sep 17 00:00:00 2001
+From: Michael <nakaner@gmx.net>
+Date: Sat, 1 Feb 2020 22:46:10 +0100
+Subject: [PATCH] Make it possible to disable Gravatar
+
+Use GRAVATAR_DISABLED = True in the Django settings file.
+---
+ django_mailman3.egg-info/SOURCES.txt               |  4 +-
+ .../static/django-mailman3/img/default_avatar.svg  |  7 ++++
+ .../django_mailman3/gravatar_wrapper.html          |  3 ++
+ django_mailman3/templatetags/gravatar_wrapper.py   | 45 ++++++++++++++++++++++
+ django_mailman3/tests/settings_test.py             |  2 +
+ 5 files changed, 60 insertions(+), 1 deletion(-)
+ create mode 100644 django_mailman3/static/django-mailman3/img/default_avatar.svg
+ create mode 100644 django_mailman3/templates/django_mailman3/gravatar_wrapper.html
+ create mode 100644 django_mailman3/templatetags/gravatar_wrapper.py
+
+diff --git a/django_mailman3.egg-info/SOURCES.txt b/django_mailman3.egg-info/SOURCES.txt
+index 8f1801c..5f90553 100644
+--- a/django_mailman3.egg-info/SOURCES.txt
++++ b/django_mailman3.egg-info/SOURCES.txt
+@@ -155,6 +155,7 @@ django_mailman3/migrations/0001_initial.py
+ django_mailman3/migrations/0002_maildomain.py
+ django_mailman3/migrations/__init__.py
+ django_mailman3/static/django-mailman3/css/main.css
++django_mailman3/static/django-mailman3/img/default_avatar.svg
+ django_mailman3/static/django-mailman3/img/login/facebook.png
+ django_mailman3/static/django-mailman3/img/login/fedora.png
+ django_mailman3/static/django-mailman3/img/login/github.png
+@@ -190,6 +191,7 @@ django_mailman3/templates/socialaccount/signup.html
+ django_mailman3/templates/socialaccount/snippets/provider_list.html
+ django_mailman3/templatetags/__init__.py
+ django_mailman3/templatetags/bootstrap_tags.py
++django_mailman3/templatetags/gravatar_wrapper.py
+ django_mailman3/templatetags/pagination.py
+ django_mailman3/tests/__init__.py
+ django_mailman3/tests/settings_test.py
+@@ -219,4 +221,4 @@ django_mailman3/tests/testdata/payload-unknown.txt
+ django_mailman3/tests/testdata/payload-utf8.txt
+ django_mailman3/tests/testdata/pipermail_nextpart.txt
+ django_mailman3/views/__init__.py
+-django_mailman3/views/profile.py
+\ No newline at end of file
++django_mailman3/views/profile.py
+diff --git a/django_mailman3/static/django-mailman3/img/default_avatar.svg b/django_mailman3/static/django-mailman3/img/default_avatar.svg
+new file mode 100644
+index 0000000..6d903be
+--- /dev/null
++++ b/django_mailman3/static/django-mailman3/img/default_avatar.svg
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8" standalone="no"?>
++<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" version="1.1">
++  <rect width="100%" height="100%" fill="#c5c5c5"/>
++  <g transform="translate(0,-932.3)">
++    <path d="m 33.2,981.8 c 2.9,21.9 7.6,30.2 7.6,30.2 0,0 -28.4,8.9 -32.3,10.4 -3.8,1.5 -8.5,8.6 -8.5,29.9 l 120,0 c 0,-21.2 -4.5,-28.3 -8.3,-29.8 -3.8,-1.5 -32.3,-10.4 -32.3,-10.4 0,0 4.6,-8.2 7.6,-30.2 2.8,-21.3 -9.1,-36.8 -26.8,-36.9 -17.6,0 -29.6,15.4 -26.8,36.7 z" style="fill:#ffffff;fill-opacity:1;stroke:none"/>
++  </g>
++</svg>
+diff --git a/django_mailman3/templates/django_mailman3/gravatar_wrapper.html b/django_mailman3/templates/django_mailman3/gravatar_wrapper.html
+new file mode 100644
+index 0000000..6f9a184
+--- /dev/null
++++ b/django_mailman3/templates/django_mailman3/gravatar_wrapper.html
+@@ -0,0 +1,3 @@
++{% load gravatar %}
++{% load static %}
++{% if gravatar_enabled %}{% gravatar email size %}{% else %}<img class="{{ css_clss }}" src="{% static 'hyperkitty/img/default_avatar.svg' %}" width="{{ size }}" height="{{ size }}" alt="{{ alt_text }}" />{% endif %}
+diff --git a/django_mailman3/templatetags/gravatar_wrapper.py b/django_mailman3/templatetags/gravatar_wrapper.py
+new file mode 100644
+index 0000000..f2db77d
+--- /dev/null
++++ b/django_mailman3/templatetags/gravatar_wrapper.py
+@@ -0,0 +1,45 @@
++# -*- coding: utf-8 -*-
++#
++# Copyright (C) 2012-2019 by the Free Software Foundation, Inc.
++#
++# This file is part of Django-Mailman.
++#
++# HyperKitty is free software: you can redistribute it and/or modify it under
++# the terms of the GNU General Public License as published by the Free
++# Software Foundation, either version 3 of the License, or (at your option)
++# any later version.
++#
++# HyperKitty is distributed in the hope that it will be useful, but WITHOUT
++# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
++# more details.
++#
++# You should have received a copy of the GNU General Public License along with
++# HyperKitty.  If not, see <http://www.gnu.org/licenses/>.
++#
++# Author: Michael Reichert <osm-ml@michreichert.de>
++#
++
++from django import template
++from django.conf import settings
++from django_gravatar.helpers import GRAVATAR_DEFAULT_SIZE
++
++register = template.Library()
++
++
++def gravatar_enabled():
++    return (not getattr(settings, 'GRAVATAR_DISABLED', False))
++
++@register.inclusion_tag('django_mailman3/gravatar_wrapper.html')
++def gravatar_wrapper(email, size=GRAVATAR_DEFAULT_SIZE, alt_text='', css_class='gravatar'):
++    """
++    Call the Gravatar tag if it is not disabled by setting GRAVATAR_DISABLED
++    in Django settings to True.
++    """
++    return {
++        'gravatar_enabled': gravatar_enabled(),
++        'email': email,
++        'size': size,
++        'alt_text': alt_text,
++        'css_class': css_class,
++    }
+diff --git a/django_mailman3/tests/settings_test.py b/django_mailman3/tests/settings_test.py
+index 86fd97b..8d875d9 100644
+--- a/django_mailman3/tests/settings_test.py
++++ b/django_mailman3/tests/settings_test.py
+@@ -189,3 +189,5 @@ CACHES = {
+         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+     }
+ }
++
++GRAVATAR_DISABLED = False
+-- 
+2.7.4
+
