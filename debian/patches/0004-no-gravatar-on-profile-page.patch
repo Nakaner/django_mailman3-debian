@@ -1,0 +1,65 @@
+From f72a22eae3b20418022c50b6235f68b6a6344b3a Mon Sep 17 00:00:00 2001
+From: Michael <osm-ml@michreichert.de>
+Date: Tue, 4 Feb 2020 16:04:08 +0100
+Subject: [PATCH] Do not include the Gravatar image on the profile at all if
+ Gravatar is disabled
+
+---
+ django_mailman3/templates/django_mailman3/profile/profile.html | 5 +++++
+ django_mailman3/templatetags/gravatar_wrapper.py               | 4 ++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/django_mailman3/templates/django_mailman3/profile/profile.html b/django_mailman3/templates/django_mailman3/profile/profile.html
+index dd066d4..792f6a7 100644
+--- a/django_mailman3/templates/django_mailman3/profile/profile.html
++++ b/django_mailman3/templates/django_mailman3/profile/profile.html
+@@ -1,6 +1,7 @@
+ {% extends "django_mailman3/profile/base.html" %}
+ {% load i18n %}
+ {% load gravatar %}
++{% load gravatar_wrapper %}
+ {% load staticfiles %}
+ {% load bootstrap_tags %}
+ 
+@@ -13,10 +14,12 @@
+         {% csrf_token %}
+ 
+         <div class="hidden-tn hidden-xs col-sm-4 col-sm-push-8 col-md-4 col-md-push-8 col-lg-6 col-lg-push-6">
++           {% if get_gravatar_enabled is True %}
+             <div class="gravatar">
+                 <a href="{{ gravatar_url }}">{% gravatar user.email 100 %}</a>
+                 <p><a href="{{ gravatar_url }}">{% trans "Edit on" %} {{ gravatar_shortname }}</a></p>
+             </div>
++            {% endif %}
+         </div>
+ 
+         <div class="col-sm-8 col-sm-pull-4 col-md-8 col-md-pull-4 col-lg-6 col-lg-pull-6">
+@@ -49,8 +52,10 @@
+                 <label class="col-sm-3 control-label">{% trans 'Avatar:' %}</label>
+                 <div class="col-sm-9">
+                     <p class="form-control-static">
++                        {% if get_gravatar_enabled is True %}
+                         <a href="{{ gravatar_url }}">{% gravatar user.email 60 %}</a>
+                         <a href="{{ gravatar_url }}">{% trans "Edit on" %} {{ gravatar_shortname }}</a>
++                        {% endif %}
+                     </p>
+                 </div>
+             </div>
+diff --git a/django_mailman3/templatetags/gravatar_wrapper.py b/django_mailman3/templatetags/gravatar_wrapper.py
+index f2db77d..59677d0 100644
+--- a/django_mailman3/templatetags/gravatar_wrapper.py
++++ b/django_mailman3/templatetags/gravatar_wrapper.py
+@@ -30,6 +30,10 @@ register = template.Library()
+ def gravatar_enabled():
+     return (not getattr(settings, 'GRAVATAR_DISABLED', False))
+ 
++@register.tag()
++def get_gravatar_enabled():
++    return not gravatar_enabled()
++
+ @register.inclusion_tag('django_mailman3/gravatar_wrapper.html')
+ def gravatar_wrapper(email, size=GRAVATAR_DEFAULT_SIZE, alt_text='', css_class='gravatar'):
+     """
+-- 
+2.7.4
+
