@@ -33,3 +33,19 @@ generic avatar image for all accounts. The patch does not introduce an
 independent avatar management by Hyperkitty/Postorius.
 
  -- Michael Reichert <osm-ml@michreichert.de>  Sun, 02 Feb 2020 20:19:25 +0100
+
+
+Captcha Support
+---------------
+
+Captcha support is optional and disabled by default. You need to add
+ACCOUNT_SIGNUP_FORM_CLASS = 'django_mailman3.forms.CaptchaSignupForm'
+to /etc/mailman3/mailman-web.py.
+
+It is recommended to install Flite, a speech synthesizer, in order to add
+audible captchas for visually impaired users who want to sign up for an
+account. If you install Flite, installing Sox is strongly recommended.  It adds
+random noise to the output. Otherwise, spammers will compare the hashes of the
+audio files and can create rainbow tables easily.
+
+ -- Michael Reichert <osm-ml@michreichert.de>  Sun, 21 Feb 2021 11:27:40 +0100

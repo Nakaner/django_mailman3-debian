@@ -1,0 +1,84 @@
+Add support for django-simple-captcha
+--- a/django_mailman3/forms.py
++++ b/django_mailman3/forms.py
+@@ -21,6 +21,7 @@
+ #
+ 
+ 
++from captcha.fields import CaptchaField
+ from django import forms
+ from django.contrib.auth.models import User
+ from django.utils.translation import ugettext_lazy as _
+@@ -42,3 +43,14 @@
+                 raise forms.ValidationError(
+                     _("A user with that username already exists."))
+         return username
++
++
++class CaptchaSignupForm(forms.Form):
++    captcha = CaptchaField()
++
++    def save(self, request):
++        user = super(AllAuthSignupForm, self).save(request)
++        return user
++
++    def signup(self, request, user):
++        pass
+--- a/django_mailman3/urls.py
++++ b/django_mailman3/urls.py
+@@ -20,8 +20,8 @@
+ # Author: Aurelien Bompard <abompard@fedoraproject.org>
+ #
+ 
+-
+-from django.conf.urls import url
++from django.conf import settings
++from django.conf.urls import include, url
+ 
+ from django_mailman3.views.profile import delete_account, user_profile
+ 
+@@ -31,3 +31,8 @@
+         name='mm_user_account_delete'),
+     url(r'^user-profile/$', user_profile, name='mm_user_profile'),
+     ]
++
++# URLs for django-simple-captcha if enabled
++if settings.ACCOUNT_SIGNUP_FORM_CLASS == 'django_mailman3.forms.CaptchaSignupForm':
++    urlpatterns.append(url(r'^captcha/', include('captcha.urls')))
++
+--- a/setup.py
++++ b/setup.py
+@@ -41,6 +41,7 @@
+         'Django>=1.11,<2.3',
+         'mailmanclient',
+         'django-allauth',
++        'django-simple-captcha',
+         'django-gravatar2 >= 1.0.6',
+         'pytz'
+     ],
+--- a/django_mailman3/tests/settings_test.py
++++ b/django_mailman3/tests/settings_test.py
+@@ -51,7 +51,8 @@
+     'allauth.account',
+     'allauth.socialaccount',
+     'allauth.socialaccount.providers.openid',
+-    'django_gravatar'
++    'django_gravatar',
++    'captcha',
+ )
+ 
+ 
+@@ -207,3 +208,13 @@
+         }
+     }
+ ]
++
++# Uncomment the following lines for Captcha support
++# Don't forget to add 'captcha' to INSTALLED_APPS.
++ACCOUNT_SIGNUP_FORM_CLASS = 'django_mailman3.forms.CaptchaSignupForm'
++import shutil
++# Flite makes captchas audible for visually impaired users.
++CAPTCHA_FLITE_PATH = shutil.which('flite')
++# Sox adds random noise to prevent spammers calculating hashes of the
++# captchas and creating rainbow tables of them.
++CAPTCHA_SOX_PATH = shutil.which('sox')

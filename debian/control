@@ -6,15 +6,18 @@ Section: python
 Priority: optional
 Build-Depends: debhelper-compat (= 12),
                dh-python,
+               flite,
                python3-all,
                python3-django (>= 1:1.11~),
                python3-django-allauth,
+               python3-django-captcha,
                python3-django-compressor,
                python3-django-gravatar2,
                python3-mailmanclient,
                python3-mock,
                python3-setuptools,
-               python3-tz
+               python3-tz,
+               sox
 Standards-Version: 4.4.0
 Vcs-Browser: https://salsa.debian.org/mailman-team/django-mailman3
 Vcs-Git: https://salsa.debian.org/mailman-team/django-mailman3.git
@@ -24,6 +27,7 @@ Package: python3-django-mailman3
 Architecture: all
 Depends: python3-django (>= 1:1.11~),
          python3-django-allauth,
+         python3-django-captcha,
          python3-django-compressor,
          python3-django-gravatar2,
          python3-mailmanclient,
